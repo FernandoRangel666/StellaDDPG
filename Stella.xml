@@ -1,0 +1,201 @@
+<mujoco model="DARwIn OP Stella 3">
+
+    <compiler angle="degree" meshdir="/home/mcorleone/Downloads/STL"/>
+
+        <option gravity=" 0.00  0.00 -9.81" >
+            <flag gravity="enable" />
+        </option>
+
+    <default>
+        <joint limited='true' frictionloss="0.2" damping="1.06" armature="0.011"/>
+        <position ctrllimited="true" kp="2.65"/>
+        <mesh scale="0.001 0.001 0.001"/>
+    </default>
+
+    <visual>
+        <scale connect="0.005" />
+    </visual>
+
+    <asset>
+        <mesh file="Cuerpo/TORSO-SUP.stl" />
+        <mesh file="Cuerpo/TORSO-INF.stl" />
+
+        <mesh file="Brazo/Derecho/HMB-D.stl" />
+        <mesh file="Brazo/Derecho/HUM-D.stl" />
+        <mesh file="Brazo/Derecho/RYC-D.stl" />
+
+        <mesh file="Brazo/Izquierdo/HMB-I.stl" />
+        <mesh file="Brazo/Izquierdo/HUM-I.stl" />
+        <mesh file="Brazo/Izquierdo/RYC-I.stl" />
+
+        <mesh file="Pierna/ACETB.stl" />
+        
+        <mesh file="Pierna/Derecha/CABFE-D.stl" />
+        <mesh file="Pierna/Derecha/FEMUR-D.stl" />
+        <mesh file="Pierna/Derecha/TIBIA-D.stl" />
+        <mesh file="Pierna/Derecha/ASTRG-D.stl" />
+        <mesh file="Pierna/Derecha/FPLNT-D.stl" />
+
+        <mesh file="Pierna/Izquierda/CABFE-I.stl" />
+        <mesh file="Pierna/Izquierda/FEMUR-I.stl" />
+        <mesh file="Pierna/Izquierda/TIBIA-I.stl" />
+        <mesh file="Pierna/Izquierda/ASTRG-I.stl" />
+        <mesh file="Pierna/Izquierda/FPLNT-I.stl" />
+
+        <mesh file="Cabeza/VC1AT.stl" />
+        <mesh file="Cabeza/CRNEO.stl" />
+
+        <texture name="Textura Suelo" type="2d" builtin="checker" rgb1="0.7 0.7 0.75" rgb2="0.9 0.9 0.95" width="250" height="250"/>
+        <material name="Suelo" texture="Textura Suelo" texrepeat="5 5" specular="0.5" shininess="0.01" reflectance="0.1" />
+    </asset>
+
+    <worldbody>
+        <light directional="true" pos="0 0 1" dir="0 0 -1" castshadow="false"/>
+            <geom name="ground" type="plane" size="1 1 0.01" material="Suelo"/>
+
+        <body name="DARwIn OP Stella" pos="0 0 0.4">
+            <joint name="Cuerpo" type="free" limited='false'  damping="0" stiffness="0" armature="0"/>
+            <geom name="Torso Superior" type="mesh" mesh="TORSO-SUP" pos="0 0 0" euler="0 0 0" mass="0.473"/>
+            <site name='IMU' type='box' size="0.0015 0.0015 0.00055" pos='-0.00174 0.01641 -0.03406' rgba="1 0 0 1"/>
+
+            <body name="Miembro Superior Derecho" pos="-0.065747 -0.011645 -0.002702">
+                <joint name="ID 1" type="hinge" axis=" 1 0 0" pos="0.011066 0 0.002702" range="-250 250"/>
+                <geom name="Hombro Derecho" type="mesh" mesh="HMB-D" pos="0 0 0" euler="0 0 -90" mass="0.022"/>
+
+                <body name="Brazo Derecho" pos="-0.027998 0.000261 -0.013379">
+                    <joint name="ID 3" type="hinge" axis="0 -1 0" pos="0.010677 0 0" range="-100 100"/>
+                    <geom name="Húmero Derecho" type="mesh" mesh="HUM-D" pos="0 0 0" euler="0 0 -90" mass="0.158"/>
+
+                    <body name="Antebrazo Derecho" pos="-0.06501 -0.002245 0.000221">
+                        <joint name="ID 5" type="hinge" axis="0 0 1" pos="0.016302 -0.013158 0" range="0 160"/>
+                        <geom name="Radio Cubito Derecho" type="mesh" mesh="RYC-D" pos="0 0 0" euler="0 0 -90" mass="0.054"/>
+                    </body>
+                </body>
+            </body>
+
+            <body name="Miembro Superior Izquierdo" pos=" 0.065747 -0.011645 -0.002702">
+                <joint name="ID 2" type="hinge" axis="-1 0 0" pos="-0.011066 0 0.002702" range="-250 250"/>
+                <geom name="Hombro Izquierdo" type="mesh" mesh="HMB-I" pos="0 0 0" euler="0 0 90" mass="0.022"/>
+
+                <body name="Brazo Izquierdo" pos="0.027998 0.000261 -0.013379" euler="0 180 0">
+                    <joint name="ID 4" type="hinge" axis="0 -1 0" pos="0.010677 0 0" range="-100 100"/>
+                    <geom name="Húmero Izquierdo" type="mesh" mesh="HUM-I" pos="0 0 0" euler="0 0 -90" mass="0.158"/>
+
+                    <body name="Antebrazo Izquierdo" pos="-0.06501 -0.002245 0.000221" euler="0 0 0">
+                        <joint name="ID 6" type="hinge" axis="0 0 -1" pos="0.016302 -0.013158 0" range="-160 0"/>
+                        <geom name="Radio Cubito Izquierdo" type="mesh" mesh="RYC-I" pos="0 0 0" euler="0 0 -90" mass="0.054"/>
+                    </body>
+                </body>
+            </body>
+
+
+            <geom name="Torso Inferior" type="mesh" mesh="TORSO-INF" pos="-0.000853 0.005 -0.08" euler="0 0 180" mass="0.725"/>
+
+
+            <body name="Miembro Inferior Derecho" pos="-0.037423 -0.006366 -0.11571" euler="0 0 0">
+                <joint name="ID 7" type="hinge" axis="0 0 -1" pos="0 0 0" range="-150 45"/>
+                <geom name="Acetábulo Derecho" type="mesh" mesh="ACETB" pos="0 0 0" euler="0 0 0" mass="0.031"/>
+
+                <body name="Cadera Derecha" pos="-0.000031 0.042939 -0.045597" euler="0 0 0">
+                    <joint name="ID 9" type="hinge" axis="0 -1 0" pos="0 0 0.011595" range="-100 30"/>
+                    <geom name="Cabeza Femoral Derecha" type="mesh" mesh="CABFE-D" pos="0 0 0" euler="0 0 0" mass="0.154"/>
+
+                    <body name="Muslo Derecho" pos="0 -0.043863 -0.021831" euler="0 0 0">
+                        <joint name="ID 11" type="hinge" axis="1 0 0" pos="0 0.000871 0.033397" range="-60 60"/>
+                        <geom name="Femur Derecho" type="mesh" mesh="FEMUR-D" pos="0 0 0" euler="0 0 0" mass="0.119"/>
+
+                        <body name="Pierna Derecha" pos="0.018261 0.0008778 -0.059763" euler="0 0 0">
+                            <joint name="ID 13" type="hinge" axis="1 0 0" pos="-0.019 0 0" range="0 130"/>
+                            <geom name="Tibia Derecha" type="mesh" mesh="TIBIA-D" pos="0 0 0" euler="0 0 0" mass="0.085"/>
+
+                            <body name="Tarso Derecho" pos="-0.018297 0.042994 -0.08264" euler="0 0 0">
+                                <joint name="ID 15" type="hinge" axis="1 0 0" pos="0 -0.042994 -0.010383" range="-30 60"/>
+                                <geom name="Astrágalo Derecho" type="mesh" mesh="ASTRG-D" pos="0 0 0" euler="0 0 0" mass="0.153"/>
+
+                                <body name="Pie Derecho" pos="-0.0000104 -0.068132 -0.010386" euler="0 0 0">
+                                    <joint name="ID 17" type="hinge" axis="0 -1 0" pos="0 0 0" range="-60 60"/>
+                                    <geom name="Fascia Planar Derecha" type="mesh" mesh="FPLNT-D" pos="0 0 0" euler="0 0 0" mass="0.078"/>
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+
+            <body name="Miembro Inferior Izquierdo" pos=" 0.037423 -0.006366 -0.11571" euler="0 0 0">
+                <joint name="ID 8" type="hinge" axis="0 0 -1" pos="0 0 0" range="-45 150"/>
+                <geom name="Acetábulo Izquierdo" type="mesh" mesh="ACETB" pos="0 0 0" euler="0 0 0" mass="0.031"/>
+
+                <body name="Cadera Izquierda" pos=" 0.000031 0.042939 -0.045597" euler="0 0 0">
+                    <joint name="ID 10" type="hinge" axis="0 -1 0" pos="0 0 0.011595" range="-30 100"/>
+                    <geom name="Cabeza Femoral Izquierdo" type="mesh" mesh="CABFE-I" pos="0 0 0" euler="0 0 0" mass="0.154"/>
+
+                    <body name="Muslo Izquierdo" pos="0 -0.043863 -0.021831" euler="0 0 0">
+                        <joint name="ID 12" type="hinge" axis="-1 0 0" pos="0 0.000871 0.033397" range="-60 60"/>
+                        <geom name="Femur Izquierdo" type="mesh" mesh="FEMUR-I" pos="0 0 0" euler="0 0 0" mass="0.119"/>
+
+                        <body name="Pierna Izquierda" pos="0.017739 0.0008778 -0.059763" euler="0 0 0">
+                            <joint name="ID 14" type="hinge" axis="-1 0 0" pos="-0.017 0 0" range="-130 0"/>
+                            <geom name="Tibia Izquierda" type="mesh" mesh="TIBIA-I" pos="0 0 0" euler="0 0 0" mass="0.085"/>
+
+                            <body name="Tarso Izquierdo" pos="-0.017747 0.042994 -0.08264" euler="0 0 0">
+                                <joint name="ID 16" type="hinge" axis="-1 0 0" pos="0 -0.042994 -0.010383" range="-60 30"/>
+                                <geom name="Astrágalo Izquierdo" type="mesh" mesh="ASTRG-I" pos="0 0 0" euler="0 0 0" mass="0.153"/>
+
+                                <body name="Pie Izquierdo" pos="-0.0000104 -0.068132 -0.010386" euler="0 0 0">
+                                    <joint name="ID 18" type="hinge" axis="0 -1 0" pos="0 0 0" range="-60 60"/>
+                                    <geom name="Fascia Planar Izquierda" type="mesh" mesh="FPLNT-I" pos="0 0 0" euler="0 0 0" mass="0.078"/>
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+
+            <body name="Base del Cráneo" pos="0 -0.010549 0.02976" euler="0 0 0">
+                <joint name="ID 19" type="hinge" axis="0 0 1" pos="0 -0.0010201 -0.020" range="-150 150"/>
+                <geom name="Vértebra C1 Atlas" type="mesh" mesh="VC1AT" pos="0 0 0" euler="0 0 -90" mass="0.027"/>
+
+                <body name="Calota Craneal" pos="-0.0002571 0.007163 0.029183" euler="0 0 0">
+                    <joint name="ID 20" type="hinge" axis="1 0 0" pos="0 -0.0081828 -0.0081768" range="-60 30"/>
+                    <geom name="Cráneo" type="mesh" mesh="CRNEO" pos="0 0 0" euler="0 0 180" mass="0.212"/>
+                </body>
+            </body>
+
+        </body>
+
+    </worldbody>
+
+    <actuator>
+        <position joint="ID 1"  name="POS 1"  ctrlrange="-4.363323129985824 4.363323129985824"/>-->
+        <position joint="ID 3"  name="POS 3"  ctrlrange="-1.745329251994329 1.745329251994329"/>-->
+        <position joint="ID 5"  name="POS 5"  ctrlrange=" 0.000000000000000 2.792526803190927"/>-->
+
+        <position joint="ID 2"  name="POS 2"  ctrlrange="-4.363323129985824 4.363323129985824"/>-->
+        <position joint="ID 4"  name="POS 4"  ctrlrange="-1.745329251994329 1.745329251994329"/>-->
+        <position joint="ID 6"  name="POS 6"  ctrlrange="-2.792526803190927 0.000000000000000 "/>-->
+
+        <position joint="ID 7"  name="POS 7"  ctrlrange="-2.617993877991494 0.785398163397448"/>-->
+        <position joint="ID 9"  name="POS 9"  ctrlrange="-1.745329251994329 0.523598775598298"/>-->
+        <position joint="ID 11" name="POS 11" ctrlrange="-1.047197551196597 1.047197551196597"/>-->
+        <position joint="ID 13" name="POS 13" ctrlrange=" 0.000000000000000 2.268928027592628"/>-->
+        <position joint="ID 15" name="POS 15" ctrlrange="-0.523598775598298 1.047197551196597"/>-->
+        <position joint="ID 17" name="POS 17" ctrlrange="-1.047197551196597 1.047197551196597"/>-->
+
+        <position joint="ID 8"  name="POS 8"  ctrlrange="-0.785398163397448 2.617993877991494"/>-->
+        <position joint="ID 10" name="POS 10" ctrlrange="-0.523598775598298 1.745329251994329"/>-->
+        <position joint="ID 12" name="POS 12" ctrlrange="-1.047197551196597 1.047197551196597"/>-->
+        <position joint="ID 14" name="POS 14" ctrlrange="-2.268928027592628 0.000000000000000"/>-->
+        <position joint="ID 16" name="POS 16" ctrlrange="-1.047197551196597 0.523598775598298"/>-->
+        <position joint="ID 18" name="POS 18" ctrlrange="-1.047197551196597 1.047197551196597"/>-->
+
+        <position joint="ID 19" name="POS 19" ctrlrange="-2.617993877991494 2.6179938779914944"/>-->
+        <position joint="ID 20" name="POS 20" ctrlrange="-1.047197551196597 0.5235987755982988"/>-->
+    </actuator>
+
+    <sensor>
+        <accelerometer  name="Acelerómetro" site="IMU"/>
+        <gyro           name="Giroscopio"   site="IMU"/>
+    </sensor>
+
+</mujoco>
